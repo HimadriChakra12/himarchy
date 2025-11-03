@@ -1,0 +1,1 @@
+/home/himadri/.config/omarchy/current/theme/neovim.lua
