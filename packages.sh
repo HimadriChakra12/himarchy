@@ -1,7 +1,4 @@
 #!/bin/bash
-set -e
-
-# Packages
 # Packages
 packages=(
     "nemo"
