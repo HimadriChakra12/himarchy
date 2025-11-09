@@ -1,4 +1,4 @@
-git clone "https://github.com/himadrichakra12/himarchy.git'
+git clone "https://github.com/himadrichakra12/himarchy.git"
 scripts=(
     "$HOME/himarchy/symlink.sh"
     "$HOME/himarchy/defaults.sh"
