@@ -42,13 +42,19 @@ removals=(
     "imv"
     "typora"
 )
-echo "Langs"
-yay -S --noconfirm "${langs[@]}"
-echo "Shell"
-yay -S --noconfirm "${shell[@]}"
-echo "Editor"
-yay -S --noconfirm "${editor[@]}"
-echo "Other"
-yay -S --noconfirm "${packages[@]}"
-echo "wine"
-yay -S --noconfirm "${wine[@]}"
+NOCONFIRM_FLAG="$1"
+
+echo "Installing Languages..."
+yay -S ${NOCONFIRM_FLAG} "${langs[@]}"
+
+echo "Installing Shell..."
+yay -S ${NOCONFIRM_FLAG} "${shell[@]}"
+
+echo "Installing Editors..."
+yay -S ${NOCONFIRM_FLAG} "${editor[@]}"
+
+echo "Installing Other Packages..."
+yay -S ${NOCONFIRM_FLAG} "${packages[@]}"
+
+echo "Installing Wine..."
+yay -S ${NOCONFIRM_FLAG} "${wine[@]}"
