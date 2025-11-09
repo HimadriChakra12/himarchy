@@ -7,15 +7,9 @@
 
 alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
-
-# Name of the tmux session
 SESSION_NAME="cmus"
-
-# Check if the tmux session exists
 if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
-    # Start cmus in a new detached tmux session
     tmux new-session -d -s "$SESSION_NAME" "cmus"
-    echo "cmus session started in background."
 fi
 alias cm="tmux attach -t cmus"
 alias t="tmux"
