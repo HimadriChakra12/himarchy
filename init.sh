@@ -1,4 +1,4 @@
-git clone "https://github.com/himadrichakra12/himarchy.git" "~/himarchy"
+git clone "https://github.com/himadrichakra12/himarchy.git" "$HOME/himarchy"
 
 cd ~/himarchy
 chmod +x "symlink.sh"
