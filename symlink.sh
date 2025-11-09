@@ -11,6 +11,7 @@ for entry in "${dotfiles[@]}"; do
   src="${entry%%:*}"
   tgt="${entry##*:}"
   echo "Linking $src → $tgt"
+  rm "$tgt" -r
   ln -sf "$src" "$tgt"
 done
 cp "$HOME/himarchy/nemo/scripts" "$HOME/.local/share/nemo" -r
