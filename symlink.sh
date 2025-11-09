@@ -1,6 +1,7 @@
 dotfiles=(
   "$HOME/himarchy/.config:$HOME/.config"
   "$HOME/himarchy/custom:$HOME/.local/share/applications/custom"
+  "$HOME/himarchy/nemo_scripts:$HOME/.local/share/nemo/scripts"
   "$HOME/himarchy/bin:$HOME/bin"
   "$HOME/himarchy/bashrc:$HOME/bashrc"
   "$HOME/himarchy/.tmux.conf:$HOME/.tmux.conf"
