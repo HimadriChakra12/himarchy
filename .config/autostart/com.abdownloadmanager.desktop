@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=AB Download Manager
+Exec="/home/himadri/ABDownloadManager/bin/ABDownloadManager" --background
+Icon=/home/himadri/ABDownloadManager/lib/ABDownloadManager.png
+Terminal=false
+NoDisplay=true

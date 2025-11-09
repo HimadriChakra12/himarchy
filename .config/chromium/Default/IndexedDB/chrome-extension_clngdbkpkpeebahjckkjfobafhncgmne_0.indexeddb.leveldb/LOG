@@ -1,0 +1,15 @@
+2025/11/09-16:07:16.270 380d Reusing MANIFEST /home/himadri/.config/chromium/Default/IndexedDB/chrome-extension_clngdbkpkpeebahjckkjfobafhncgmne_0.indexeddb.leveldb/MANIFEST-000001
+2025/11/09-16:07:16.270 380d Recovering log #22
+2025/11/09-16:07:16.363 380d Reusing old log /home/himadri/.config/chromium/Default/IndexedDB/chrome-extension_clngdbkpkpeebahjckkjfobafhncgmne_0.indexeddb.leveldb/000022.log 
+2025/11/09-16:07:48.448 380e Level-0 table #28: started
+2025/11/09-16:07:48.486 380e Level-0 table #28: 520512 bytes OK
+2025/11/09-16:07:48.493 380e Delete type=0 #22
+2025/11/09-16:07:48.495 380e Manual compaction at level-0 from (begin) .. (end); will stop at (end)
+2025/11/09-16:07:48.495 380e Manual compaction at level-1 from (begin) .. (end); will stop at '\x00\x03\x01\x02\x03\x00\x00\x00\x00\x00\x001@' @ 66302 : 1
+2025/11/09-16:07:48.495 380e Compacting 1@1 + 1@2 files
+2025/11/09-16:07:48.519 380e Generated table #29@1: 201 keys, 44759 bytes
+2025/11/09-16:07:48.519 380e Compacted 1@1 + 1@2 files => 44759 bytes
+2025/11/09-16:07:48.525 380e compacted to: files[ 0 0 1 0 0 0 0 ]
+2025/11/09-16:07:48.526 380e Delete type=2 #25
+2025/11/09-16:07:48.526 380e Delete type=2 #28
+2025/11/09-16:07:48.527 380e Manual compaction at level-1 from '\x00\x03\x01\x02\x03\x00\x00\x00\x00\x00\x001@' @ 66302 : 1 .. (end); will stop at (end)

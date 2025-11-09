@@ -1,0 +1,19 @@
+.nemo-window-pane {
+  background-color: #1e1e2e;
+}
+
+.header-bar {
+  background-color: #181825;
+  border: none;
+  padding: 4px;
+}
+
+.nemo-list-view .view {
+  background-color: #1e1e2e;
+  color: #cdd6f4;
+}
+
+.nemo-list-view .view:selected {
+  background-color: #313244;
+  color: #f5e0dc;
+}

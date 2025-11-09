@@ -1,0 +1,38 @@
+{
+   "action": {
+      "default_popup": "src/browseractionpopup/browser-action.html",
+      "default_title": "AB Download Manager"
+   },
+   "author": "AmirHossein Abdolmotallebi",
+   "background": {
+      "service_worker": "serviceWorker.js",
+      "type": "module"
+   },
+   "content_scripts": [ {
+      "js": [ "src/contentscripts/ContentScript.js" ],
+      "matches": [ "*://*/*" ]
+   } ],
+   "default_locale": "en",
+   "description": "Download files with AB Download Manager app",
+   "homepage_url": "https://abdownloadmanager.com",
+   "host_permissions": [ "*://*/*" ],
+   "icons": {
+      "128": "icons/icon-128.png",
+      "48": "icons/icon-48.png",
+      "96": "icons/icon-96.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7sRkZXuf6fZf/yv1C88bk1iwWy5dCY83bdqjAE3nmhxOh2nQhHA9QkVOaZWV2C9FejqCMnFuvaem/J2B2uq3MsNrxRDRmCBJKBI6G9OCvTFynMu+OX5VjecV9DuBFOnz5qouSnuzuSbADkklxR4ZShtQ6emaAoWb0nznfZwxwsb3GYL2cEwLxLRCArjGoY7gdqU3Btpr9P2AeCqywSMiM8xesITisPfi+jydA/Be0c2chKIqEDszmyhlPzHJlAYbl23wA65Fd6/JtDo4NKUeQ9SnM01EVTLTRS6WjGOYumOf0T3b+g9vDUz+hR/y6zE9DSI+FDwieqRt2SzhQZ44ywIDAQAB",
+   "manifest_version": 3,
+   "name": "AB Download Manager Browser Integration",
+   "options_ui": {
+      "open_in_tab": true,
+      "page": "src/optionsui/option-ui.html"
+   },
+   "permissions": [ "contextMenus", "webRequest", "cookies", "storage", "tabs", "downloads", "notifications" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.3.3",
+   "web_accessible_resources": [ {
+      "matches": [ "*://*/*" ],
+      "resources": [ "assets/src/contentscripts/ContentScript-f4200317.js", "assets/Config-486537b1.js", "assets/options-7f96258d.js", "assets/chunk-QIZ4XBKF-980296cc.js" ]
+   } ]
+}

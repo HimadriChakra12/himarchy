@@ -1,0 +1,12 @@
+2025/11/09-15:08:52.394 380e Reusing MANIFEST /home/himadri/.config/chromium/Default/IndexedDB/https_www.youtube.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/11/09-15:08:52.395 380e Recovering log #92
+2025/11/09-15:08:52.417 380e Reusing old log /home/himadri/.config/chromium/Default/IndexedDB/https_www.youtube.com_0.indexeddb.leveldb/000092.log 
+2025/11/09-15:29:22.282 380e Level-0 table #97: started
+2025/11/09-15:29:22.332 380e Level-0 table #97: 1409047 bytes OK
+2025/11/09-15:29:22.345 380e Delete type=0 #92
+2025/11/09-16:07:35.499 380e Compacting 1@1 + 1@2 files
+2025/11/09-16:07:35.526 380e Generated table #98@1: 940 keys, 107581 bytes
+2025/11/09-16:07:35.526 380e Compacted 1@1 + 1@2 files => 107581 bytes
+2025/11/09-16:07:35.531 380e compacted to: files[ 0 0 1 0 0 0 0 ]
+2025/11/09-16:07:35.532 380e Delete type=2 #94
+2025/11/09-16:07:35.532 380e Delete type=2 #97
