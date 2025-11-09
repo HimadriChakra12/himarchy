@@ -12,6 +12,11 @@ packages=(
     "jdownloader2"
     "qbittorrent"
 )
+editor=(
+    "gimp-devel"
+    "rawtherapee"
+    "darktable"
+)
 shell=(
     "curl"
     "github-cli"
