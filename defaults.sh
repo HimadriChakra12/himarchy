@@ -45,31 +45,31 @@ MimeType=inode/directory;"
 
 echo "Setting default applications..."
 
-# Default browser
-xdg-settings set default-web-browser firefox.desktop
+# Default browser (silence warnings)
+xdg-settings set default-web-browser firefox.desktop 2>/dev/null
 echo "Firefox set as default browser"
 
 # Default image viewer
 echo "Setting Qimgv as default image viewer..."
 for mime in image/jpeg image/png image/gif image/webp image/svg+xml; do
-    xdg-mime default qimgv.desktop "$mime"
+    xdg-mime default qimgv.desktop "$mime" 2>/dev/null
 done
 
 # Default video player
 echo "Setting MPV as default video player..."
 for mime in video/mp4 video/x-matroska video/x-msvideo video/webm; do
-    xdg-mime default mpv.desktop "$mime"
+    xdg-mime default mpv.desktop "$mime" 2>/dev/null
 done
 
 # Default music player
 echo "Setting Rhythmbox as default music player..."
 for mime in audio/mpeg audio/x-wav audio/ogg audio/flac; do
-    xdg-mime default rhythmbox.desktop "$mime"
+    xdg-mime default rhythmbox.desktop "$mime" 2>/dev/null
 done
 
 # Default file manager
-xdg-mime default nemo.desktop inode/directory
-xdg-settings set default-file-manager nemo.desktop
+xdg-mime default nemo.desktop inode/directory 2>/dev/null
+xdg-settings set default-file-manager nemo.desktop 2>/dev/null
 echo "Nemo set as default file manager"
 
 echo "Default apps setup complete!"
