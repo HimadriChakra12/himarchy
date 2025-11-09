@@ -1,6 +1,0 @@
-2025/11/07-00:36:53.786 df1a Creating DB /home/himadri/.config/chromium/Default/IndexedDB/https_music.youtube.com_0.indexeddb.leveldb since it was missing.
-2025/11/07-00:36:53.799 df1a Reusing MANIFEST /home/himadri/.config/chromium/Default/IndexedDB/https_music.youtube.com_0.indexeddb.leveldb/MANIFEST-000001
-2025/11/07-00:40:17.138 df18 Level-0 table #5: started
-2025/11/07-00:40:17.153 df18 Level-0 table #5: 233591 bytes OK
-2025/11/07-00:40:17.159 df18 Delete type=0 #3
-2025/11/07-00:40:17.160 df18 Manual compaction at level-0 from (begin) .. (end); will stop at (end)

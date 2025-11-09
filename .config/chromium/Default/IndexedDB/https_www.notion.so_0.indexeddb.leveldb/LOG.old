@@ -1,6 +1,0 @@
-2025/11/07-12:48:24.501 783 Creating DB /home/himadri/.config/chromium/Default/IndexedDB/https_www.notion.so_0.indexeddb.leveldb since it was missing.
-2025/11/07-12:48:24.517 783 Reusing MANIFEST /home/himadri/.config/chromium/Default/IndexedDB/https_www.notion.so_0.indexeddb.leveldb/MANIFEST-000001
-2025/11/07-12:48:28.130 783 Level-0 table #5: started
-2025/11/07-12:48:28.135 783 Level-0 table #5: 2641 bytes OK
-2025/11/07-12:48:28.141 783 Delete type=0 #3
-2025/11/07-12:48:28.142 773 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)

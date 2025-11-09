@@ -1,6 +1,0 @@
-2025/11/06-20:31:16.539 12d6 Creating DB /home/himadri/.config/chromium/Default/IndexedDB/https_open.spotify.com_0.indexeddb.leveldb since it was missing.
-2025/11/06-20:31:16.552 12d6 Reusing MANIFEST /home/himadri/.config/chromium/Default/IndexedDB/https_open.spotify.com_0.indexeddb.leveldb/MANIFEST-000001
-2025/11/06-20:31:22.881 12d6 Level-0 table #5: started
-2025/11/06-20:31:22.885 12d6 Level-0 table #5: 816 bytes OK
-2025/11/06-20:31:22.890 12d6 Delete type=0 #3
-2025/11/06-20:31:22.891 12d6 Manual compaction at level-0 from (begin) .. (end); will stop at (end)
