@@ -14,5 +14,14 @@ for entry in "${dotfiles[@]}"; do
   rm "$tgt" -r
   ln -sf "$src" "$tgt"
 done
-cp "$HOME/himarchy/nemo/scripts" "$HOME/.local/share/nemo" -r
-cp "$HOME/himarchy/omarchy" "$HOME/.local/share" -r
+copy=(
+    "$HOME/himarchy/nemo/scripts:$HOME/.local/share/nemo"
+    "$HOME/himarchy/omarchy:$HOME/.local/share"
+)
+echo "Copying copies..."
+for entry in "${copy[@]}"; do
+  src="${entry%%:*}"
+  tgt="${entry##*:}"
+  echo "Linking $src → $tgt"
+  cp -rf "$src" "$tgt"
+done
