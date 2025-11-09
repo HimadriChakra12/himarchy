@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=reddit
+Comment=reddit
+Exec=omarchy-launch-webapp https://reddit.com
+Terminal=false
+Type=Application
+Icon=/home/himadri/.local/share/applications/icons/reddit.png
+StartupNotify=true
+

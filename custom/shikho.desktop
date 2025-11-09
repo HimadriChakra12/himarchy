@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Shikho
+Comment=Shikho
+Exec=omarchy-launch-webapp https://shikho.com
+Terminal=false
+Type=Application
+Icon=/home/himadri/.local/share/applications/icons/Discord.png
+StartupNotify=true

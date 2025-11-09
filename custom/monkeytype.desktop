@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Monkeytype
+Comment=Monkeytype
+Exec=omarchy-launch-webapp https://monkeytype.com/
+Terminal=false
+Type=Application
+Icon=/home/himadri/.local/share/applications/icons/Monkeytype.png
+StartupNotify=true
