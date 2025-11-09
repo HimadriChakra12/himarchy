@@ -1,11 +1,11 @@
-git clone "https://github.com/himadrichakra12/himarchy.git"
-scripts=(
-    "$HOME/himarchy/symlink.sh"
-    "$HOME/himarchy/defaults.sh"
-    "$HOME/himarchy/packages.sh"
-    "$HOME/himarchy/remove-application.sh"
-)
+git clone "https://github.com/himadrichakra12/himarchy.git" "~/himarchy"
 
 echo "Removing Extra Application..."
-chmod +x "${scripts[@]}"
-./"${scripts[@]}"
+chmod +x "$HOME/himarchy/symlink.sh"
+chmod +x "$HOME/himarchy/defaults.sh"
+chmod +x "$HOME/himarchy/packages.sh"
+chmod +x "$HOME/himarchy/remove-application.sh"
+./"$HOME/himarchy/symlink.sh"
+./"$HOME/himarchy/defaults.sh"
+./"$HOME/himarchy/packages.sh"
+./"$HOME/himarchy/remove-application.sh"
