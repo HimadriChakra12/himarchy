@@ -8,9 +8,11 @@ fi
 
 if [ ! -d "$HOME/himarchy" ]; then
     git clone "https://github.com/himadrichakra12/himarchy.git" "$HOME/himarchy"
+    cd "$HOME/himarchy" || exit 1
+else
+    cd "$HOME/himarchy" || exit 1
+    git pull
 fi
-
-cd "$HOME/himarchy" || exit 1
 
 chmod +x symlink.sh defaults.sh packages.sh remove-application.sh
 
