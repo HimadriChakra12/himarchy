@@ -42,6 +42,7 @@ removals=(
     "xournalpp"
     "imv"
     "typora"
+    "nautilus"
 )
 
 # Capture --noconfirm flag from argument
@@ -65,7 +66,7 @@ install_category() {
 # Install categories
 install_category "Languages" "${langs[@]}"
 install_category "Shell tools" "${shell[@]}"
-# install_category "Editors" "${editor[@]}"
+install_category "Editors" "${editor[@]}"
 install_category "Other Packages" "${packages[@]}"
 install_category "Wine" "${wine[@]}"
 
