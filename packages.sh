@@ -1,4 +1,7 @@
-echo "Installing Packages"
+#!/bin/bash
+set -e
+
+# Packages
 packages=(
     "nemo"
     "firefox"
@@ -42,19 +45,34 @@ removals=(
     "imv"
     "typora"
 )
+
+# Capture --noconfirm flag from argument
 NOCONFIRM_FLAG="$1"
 
-echo "Installing Languages..."
-yay -S ${NOCONFIRM_FLAG} "${langs[@]}"
+# Function to install a category
+install_category() {
+    local category_name="$1"
+    shift
+    local packages_list=("$@")
+    
+    echo "Installing $category_name..."
+    if [ ${#packages_list[@]} -eq 0 ]; then
+        echo "No packages to install for $category_name."
+        return
+    fi
 
-echo "Installing Shell..."
-yay -S ${NOCONFIRM_FLAG} "${shell[@]}"
+    yay -S ${NOCONFIRM_FLAG} "${packages_list[@]}"
+}
 
-echo "Installing Editors..."
-yay -S ${NOCONFIRM_FLAG} "${editor[@]}"
+# Install categories
+install_category "Languages" "${langs[@]}"
+install_category "Shell tools" "${shell[@]}"
+install_category "Editors" "${editor[@]}"
+install_category "Other Packages" "${packages[@]}"
+install_category "Wine" "${wine[@]}"
 
-echo "Installing Other Packages..."
-yay -S ${NOCONFIRM_FLAG} "${packages[@]}"
-
-echo "Installing Wine..."
-yay -S ${NOCONFIRM_FLAG} "${wine[@]}"
+# Optional: remove unwanted packages
+if [ ${#removals[@]} -gt 0 ]; then
+    echo "Removing unwanted packages..."
+    yay -Rns ${NOCONFIRM_FLAG} "${removals[@]}" || true
+fi
