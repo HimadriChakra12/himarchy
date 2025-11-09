@@ -3,7 +3,7 @@ dotfiles=(
   "$HOME/himarchy/omarchy:$HOME/.local/share/omarchy"
   "$HOME/himarchy/custom:$HOME/.local/share/applications/custom"
   "$HOME/himarchy/bin:$HOME/bin"
-  "$HOME/himarchy/.bashrc:$HOME/.bashrc"
+  "$HOME/himarchy/bashrc:$HOME/bashrc"
   "$HOME/himarchy/.tmux.conf:$HOME/.tmux.conf"
 )
 
