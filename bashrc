@@ -227,6 +227,7 @@ ez() {
     # Extract using 7z
     7z x "$archive" -o"$dir"
 }
-omarchy-dot(){
+dot(){
     cp ~/.local/share/omarchy ~/himarchy -r
+    cp ~/.local/share/nemo/scripts ~/himarchy/nemo -r
 }
