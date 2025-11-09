@@ -228,5 +228,5 @@ ez() {
     7z x "$archive" -o"$dir"
 }
 omarchy-dot(){
-    cp ~/.local/share/omarchy ~/himarchy
+    cp ~/.local/share/omarchy ~/himarchy -r
 }
