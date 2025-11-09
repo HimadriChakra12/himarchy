@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Chatgpt
+Comment=Chatgpt
+Exec=omarchy-launch-webapp https://chatgpt.com/
+Terminal=false
+Type=Application
+Icon=/home/himadri/.local/share/applications/icons/chatgpt.png
+StartupNotify=true
