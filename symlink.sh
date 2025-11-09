@@ -1,6 +1,5 @@
 dotfiles=(
   "$HOME/himarchy/.config:$HOME/.config"
-  "$HOME/himarchy/omarchy/omarchy:$HOME/.local/share/omarchy"
   "$HOME/himarchy/custom:$HOME/.local/share/applications/custom"
   "$HOME/himarchy/bin:$HOME/bin"
   "$HOME/himarchy/bashrc:$HOME/bashrc"
@@ -15,4 +14,4 @@ for entry in "${dotfiles[@]}"; do
   ln -sf "$src" "$tgt"
 done
 
-
+cp "$HOME/himarchy/omarchy" "$HOME/.local/share" -r
