@@ -2,6 +2,7 @@
 set -e
 
 # Packages
+# Packages
 packages=(
     "nemo"
     "firefox"
@@ -11,6 +12,11 @@ packages=(
     "spotify"
     "jdownloader2"
     "qbittorrent"
+)
+editor=(
+    "gimp-devel"
+    "rawtherapee"
+    "darktable"
 )
 shell=(
     "curl"
@@ -62,7 +68,7 @@ install_category() {
 # Install categories
 install_category "Languages" "${langs[@]}"
 install_category "Shell tools" "${shell[@]}"
-install_category "Editors" "${editor[@]}"
+# install_category "Editors" "${editor[@]}"
 install_category "Other Packages" "${packages[@]}"
 install_category "Wine" "${wine[@]}"
 
