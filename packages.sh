@@ -26,6 +26,10 @@ shell=(
     "cmus"
     "flatpak"
 )
+flatpak=(
+    "com.github.tchx84.Flatseal"
+    "it.mijorus.gearlever"
+)
 langs=(
     "cmake"
     "make"
@@ -69,6 +73,7 @@ install_category "Shell tools" "${shell[@]}"
 install_category "Editors" "${editor[@]}"
 install_category "Other Packages" "${packages[@]}"
 install_category "Wine" "${wine[@]}"
+flatpak install "${flatpak[@]}"
 
 # Optional: remove unwanted packages
 if [ ${#removals[@]} -gt 0 ]; then
