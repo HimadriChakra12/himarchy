@@ -35,7 +35,7 @@ ask_password() {
         " &
 
         if [[ "$term_cmd" == "alacritty" ]]; then
-            alacritty -e bash -c "read -t 8 -rsp 'Enter password for \"$name\" (leave empty to skip): ' pass; echo; echo \"\$pass\" > '$tmpfile'"
+            alacritty --title 7z -e bash -c "read -t 8 -rsp 'Enter password for \"$name\" (leave empty to skip): ' pass; echo; echo \"\$pass\" > '$tmpfile'"
         else
             $term_cmd "read -t 60 -rsp 'Enter password for \"$name\" (leave empty to skip): ' pass; echo; echo \"\$pass\" > '$tmpfile'; read -n 1"
         fi
