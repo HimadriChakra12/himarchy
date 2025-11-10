@@ -1,6 +1,8 @@
+rm ~/music
+remove ~/musci
+add ~/Music
 filter piya dekho
 filter 
 cmus-tutorial
 help
 q
-add ~/Music
