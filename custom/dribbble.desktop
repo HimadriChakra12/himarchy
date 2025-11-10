@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Dribbble
+Comment=Dribbble
+Exec=omarchy-launch-webapp https://dribbble.com/
+Terminal=false
+Type=Application
+Icon=/home/himadri/.local/share/applications/icons/dribbble.png
+StartupNotify=true
