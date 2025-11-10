@@ -174,6 +174,15 @@ local function add_plugin(bufnr, plugins)
             end,
             once = true, -- Run only once per session
           })
+          vim.api.nvim_create_autocmd("BufWritePost", {
+            pattern = "plugs.lua",
+            callback = function()
+              vim.schedule(function()
+                vim.cmd("source $MYVIMRC")
+              end)
+            end,
+            once = true, -- Run only once per session
+          })
         end
       end)
     end)
