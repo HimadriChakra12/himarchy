@@ -29,6 +29,7 @@ shell=(
 flatpak=(
     "com.github.tchx84.Flatseal"
     "it.mijorus.gearlever"
+    "com.github.wwmm.easyeffects"
 )
 langs=(
     "cmake"
