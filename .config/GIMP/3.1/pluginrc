@@ -243,7 +243,7 @@
         (proc-arg 9 "GimpParamImage" "GimpImage" "image" "Image" "The input image" 259 0)
         (proc-arg 10 "GimpParamCoreObjectArray" "GimpCoreObjectArray" "drawables" "Drawables" "The input drawables" 259 "GimpDrawable")
         (proc-arg 12 "GimpParamBrush" "GimpBrush" "brush" "_Brush" "Brush" 3 1 0 18)
-        (proc-arg 12 "GimpParamFont" "GimpFont" "font" "_Font" "Font" 3 1 0 4658)
+        (proc-arg 12 "GimpParamFont" "GimpFont" "font" "_Font" "Font" 3 1 0 0)
         (proc-arg 12 "GimpParamGradient" "GimpGradient" "gradient" "_Gradient" "Gradient" 3 1 0 2100)
         (proc-arg 12 "GimpParamPalette" "GimpPalette" "palette" "_Palette" "Palette" 3 1 0 2033)
         (proc-arg 12 "GimpParamPattern" "GimpPattern" "pattern" "Pa_ttern" "Pattern" 3 1 0 1983)))
@@ -1883,6 +1883,8 @@
         (proc-arg 3 "GParamEnum" "GimpRunMode" "run-mode" "Run mode" "The run mode" 3 1)
         (proc-arg 13 "GimpParamFile" "GFile" "file" "File" "The file to load" 3 0 0 "")
         (proc-arg 9 "GimpParamImage" "GimpImage" "image" "Image" "Output image" 3 1)))
+(plug-in-def "${gimp_plug_in_dir}/plug-ins/file-rawtherapee/file-rawtherapee" 1762507079
+    (has-init))
 (plug-in-def "${gimp_plug_in_dir}/plug-ins/file-raw-placeholder/file-raw-placeholder" 1762507079
     (proc-def "file-raw-placeholder-canon-load" 1
          "Load files in the Canon raw formats via placeholder"
@@ -4357,6 +4359,8 @@
         (proc-arg 6 "GParamDouble" "gdouble" "gamma" "_Gamma" "Gamma value to use for gamma correction (e.g. 2.2)" 3 0 10 0)
         (proc-arg 5 "GParamBoolean" "gboolean" "preserve-alpha-coverage" "Preserve al_pha test coverage" "Preserve alpha test coverage for alpha channel maps" 3 0)
         (proc-arg 6 "GParamDouble" "gdouble" "alpha-test-threshold" "Alp_ha test threshold" "Alpha test threshold value for which alpha test coverage should be preserved" 3 0 1 0.5)))
+(plug-in-def "${gimp_plug_in_dir}/plug-ins/file-darktable/file-darktable" 1762507079
+    (has-init))
 (plug-in-def "${gimp_plug_in_dir}/plug-ins/file-csource/file-csource" 1762507079
     (proc-def "file-csource-export" 1
          "Dump image data in RGB(A) format for C source"
