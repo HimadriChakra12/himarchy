@@ -1,3 +1,4 @@
 .config/gh
 .config/chromium
 .config/omarchy/current/background
+.config/dconf
