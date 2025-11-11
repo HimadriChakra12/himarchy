@@ -36,6 +36,7 @@ alias c="clear"
 alias gg="lazygit"
 
 alias fst="fastfetch"
+alias reset="rm ~/.cache/app_launcher_cache"
 alias czf="fzf --layout=reverse --header "selector" --height 50%"
 
 cx(){
