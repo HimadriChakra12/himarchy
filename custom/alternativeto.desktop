@@ -1,0 +1,9 @@
+[desktop entry]
+version=1.0
+name=alternativeto
+comment=alternativeto
+exec=omarchy-launch-webapp https://alternativeto.to/
+terminal=false
+type=application
+icon=/home/himadri/.local/share/applications/icons/alternativeto.png
+startupnotify=true
