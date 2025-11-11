@@ -12,24 +12,36 @@ if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
     tmux new-session -d -s "$SESSION_NAME" "cmus"
 fi
 alias cm="tmux attach -t cmus"
+
 alias t="tmux"
 alias ta="tmux attach"
+alias tls="tmux list-sessions"
+alias tlw="tmux list-windows"
+alias tlp="tmux list-panes"
+
 alias paci="sudo pacman -S"
 alias pacs="sudo pacman -q"
 alias yi="yay -S"
 alias pi="pikaur -S"
 alias ys="yay -q"
 alias pks="pikaur -q"
+alias update="yay"
+
 alias ep="nvim ~/.bashrc"
+alias sour="source ~/.bashrc"
+
 alias v="nvim"
 alias q="exit"
 alias c="clear"
 alias gg="lazygit"
-alias update="yay"
-alias sour="source ~/.bashrc"
+
 alias fst="fastfetch"
-alias cmd="chmod +x"
 alias czf="fzf --layout=reverse --header "selector" --height 50%"
+
+cx(){
+    chmod +x $(fzf)
+}
+
 gcl(){
     repo=$(gh repo list --limit 100 --json name --jq '.[].name' | fzf)
     cd ~/.git
