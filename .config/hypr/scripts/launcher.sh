@@ -56,7 +56,7 @@ if [[ ! -f "$CACHE_FILE" ]]; then
 else
     last_update=$(stat -c %Y "$CACHE_FILE" 2>/dev/null)
     now=$(date +%s)
-    if (( now - last_update > 60 )) || find "$APPLICATION_DIR" -type f -name '*.desktop' -newer "$CACHE_FILE" | grep -q .; then
+    if (( now - last_update > 1 )) || find "$APPLICATION_DIR" -type f -name '*.desktop' -newer "$CACHE_FILE" | grep -q .; then
         update_cache_bg
     fi
 fi
