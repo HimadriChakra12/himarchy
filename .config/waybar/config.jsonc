@@ -4,6 +4,9 @@
     "position": "bottom",
     "spacing": 0,
     "height": 26,
+    "margin-bottom": 5,
+    "margin-left": 10,
+    "margin-right": 10,
     "modules-center": ["hyprland/workspaces"],
     "modules-left": ["custom/update", "custom/screenrecording-indicator", "clock", "custom/seperator", "custom/timer"],
     "modules-right": [
