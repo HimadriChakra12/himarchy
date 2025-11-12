@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Spotify
+Comment=A Online Music Player
+Exec=spotify
+Icon=spotify
+Terminal=false
+Categories=Utility;Network;

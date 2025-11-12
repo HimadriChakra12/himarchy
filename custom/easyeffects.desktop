@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Easyeffects
+Comment=Easyeffects
+Exec=flatpak run "com.github.wwmm.easyeffects"
+Terminal=false
+Type=Application
+Icon=/home/himadri/.local/share/applications/icons/easyeffects.png
+StartupNotify=true

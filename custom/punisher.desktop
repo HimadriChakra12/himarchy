@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Punisher
+Comment=The Punisher
+Exec=wine "~/.wine/drive_c/Program Files (x86)/MagiPacks/The Punisher/pun.exe"
+Icon=spotify
+Categories=Utility;Network;
