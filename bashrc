@@ -1,6 +1,7 @@
 #
 # ~/.bashrc
 #
+export FZF_COMPLETION_TRIGGER='..'
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
