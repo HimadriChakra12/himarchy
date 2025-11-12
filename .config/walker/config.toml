@@ -14,7 +14,6 @@ default = [
   "desktopapplications",
   "menus",
   "websearch",
-  "windows",
 ] # providers to be queried by default
 
 [[providers.prefixes]]
@@ -41,6 +40,3 @@ provider = "websearch"
 prefix = "$"
 provider = "clipboard"
 
-[[providers.prefixes]]
-prefix = "%"
-provider = "windows"
