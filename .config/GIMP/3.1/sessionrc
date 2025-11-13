@@ -12,21 +12,28 @@
 (session-info "toplevel"
     (factory-entry "gimp-single-image-window")
     (position 0 0)
-    (size 1896 1056)
+    (size 1896 1025)
     (monitor 0)
     (open-on-exit)
     (aux-info
-        (left-docks-width "44")
-        (right-docks-width "282")
+        (left-docks-width "52")
+        (right-docks-width "332")
         (maximized "yes"))
     (gimp-toolbox
         (side left))
     (gimp-dock
         (side right)
         (book
-            (current-page 0)
-            (dockable "gimp-tool-options"
-                (locked)
+            (current-page 6)
+            (dockable "gimp-color-editor"
+                (tab-style preview)
+                (aux-info
+                    (current-page "GimpColorSelect")))
+            (dockable "gimp-gradient-list"
+                (tab-style preview)
+                (aux-info
+                    (show-button-bar "true")))
+            (dockable "gimp-brush-grid"
                 (tab-style icon)
                 (aux-info
                     (show-button-bar "true")))
@@ -34,20 +41,22 @@
                 (tab-style icon)
                 (aux-info
                     (show-button-bar "true")))
-            (dockable "gimp-brush-grid"
+            (dockable "gimp-tool-preset-list"
                 (tab-style preview)
                 (aux-info
                     (show-button-bar "true")))
-            (dockable "gimp-pattern-grid"
-                (tab-style preview)
+            (dockable "gimp-tool-preset-editor"
+                (tab-style icon)
                 (aux-info
-                    (show-button-bar "true")))
-            (dockable "gimp-gradient-list"
-                (tab-style preview)
+                    (show-button-bar "true")
+                    (edit-active "true")
+                    (current-data "Core Pointer")))
+            (dockable "gimp-tool-options"
+                (tab-style icon)
                 (aux-info
                     (show-button-bar "true"))))
         (book
-            (position 741)
+            (position 417)
             (current-page 0)
             (dockable "gimp-layer-list"
                 (tab-style icon)
@@ -61,37 +70,11 @@
                     (show-button-bar "true"))))))
 (session-info "toplevel"
     (factory-entry "gimp-image-new-dialog")
-    (position 1257 725))
-(session-info "toplevel"
-    (factory-entry "gimp-toolbox-color-dialog")
-    (position 2559 856))
+    (position 743 440))
 (session-info "toplevel"
     (factory-entry "gimp-preferences-dialog")
-    (position 1340 397)
-    (size 1746 896))
-(session-info "toplevel"
-    (factory-entry "gimp-levels-tool-dialog")
-    (position 432 32)
-    (size 561 600))
-(session-info "toplevel"
-    (factory-entry "gimp-curves-tool-dialog")
-    (position 435 46)
-    (size 562 606))
-(session-info "toplevel"
-    (factory-entry "gimp-file-export-dialog")
-    (position 232 32)
-    (size 1688 1197))
-(session-info "toplevel"
-    (factory-entry "gimp-keyboard-shortcuts-dialog")
-    (position 2092 602)
-    (size 1417 1416))
-(session-info "toplevel"
-    (factory-entry "gimp-file-open-dialog")
-    (position 1257 32)
-    (size 1688 1197))
-(session-info "toplevel"
-    (factory-entry "gimp-brightness-contrast-tool-dialog")
-    (position 91 439))
+    (position 392 352)
+    (size 1137 749))
 
 (hide-docks no)
 (single-window-mode yes)
