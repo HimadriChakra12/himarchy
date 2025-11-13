@@ -9,6 +9,8 @@ require("heads")
 --require("sql")
 require("netwr")
 require("reader")
+require("todo")
+require("todo_popup")
 
 -- /csode/..
 -- require("csode.options")

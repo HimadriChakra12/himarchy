@@ -7,3 +7,12 @@ end, {})
 vim.api.nvim_create_user_command("PacmanDashboard", function()
   require("pacman.maze").open()
 end, {})
+vim.api.nvim_create_user_command(
+  "ReaderMode",
+  function()
+    ToggleReaderMode()
+  end,
+  { desc = "Toggle distraction-free reader mode" }
+)
+vim.keymap.set("n", "<leader>t", "<cmd>lua require('todo').telescope_todo_popup()<CR>", { noremap=true, silent=true })
+
