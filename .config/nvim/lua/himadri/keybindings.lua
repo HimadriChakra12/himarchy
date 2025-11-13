@@ -30,11 +30,6 @@ vim.keymap.set('n', '<leader>o', ':Telescope find_files<CR>', { noremap = true, 
 vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<CR>', { noremap = true, silent = true })
 --vim.keymap.set('n', '<leader><leader>', require('telescope.builtin').buffers, { noremap = true, silent = true })   
 
-vim.keymap.set('n', '<leader>g', ':NeoGit<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>gc', ':NeoGitCommit<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>gP', ':NeoGitPull<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>gp', ':NeoGitPush<CR>', { noremap = true, silent = true })
-
 vim.keymap.set("n", "z", ":Zcd ", { noremap = true})
 vim.keymap.set("n", "<leader>.", ":Zt<CR>", { noremap = true, silent = true })
 -- Option 1: Mapping to Clear Highlighting (e.g., <CR> after search)

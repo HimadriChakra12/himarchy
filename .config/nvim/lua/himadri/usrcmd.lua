@@ -14,5 +14,5 @@ vim.api.nvim_create_user_command(
   end,
   { desc = "Toggle distraction-free reader mode" }
 )
-vim.keymap.set("n", "<leader>t", "<cmd>lua require('todo').telescope_todo_popup()<CR>", { noremap=true, silent=true })
+vim.keymap.set("n", "<leader>t", "<cmd>lua require('himadri.todo').telescope_todo_popup()<CR>", { noremap=true, silent=true })
 

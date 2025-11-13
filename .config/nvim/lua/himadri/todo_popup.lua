@@ -1,4 +1,4 @@
-local todo = require("todo")
+local todo = require("himadri.todo")
 
 local has_telescope, telescope = pcall(require, "telescope")
 if not has_telescope then

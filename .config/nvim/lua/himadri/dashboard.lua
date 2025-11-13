@@ -56,7 +56,7 @@ local function show_dashboard()
 
         }
 
-        local pinner = require("plugins.pin")
+        local pinner = require("himadri.pin")
         local pins = pinner.get_pins()
 
         -- Prepare pins display lines
