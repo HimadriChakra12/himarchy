@@ -53,6 +53,9 @@ vim.keymap.set("n", "<leader>pm", function()
     require("pacman.maze").open()
 end, { desc = "Plugin Manager GUI" })
 
+vim.keymap.set("n", "<leader>e", function()
+    require("netwr").open()
+end, { desc = "Plugin Manager GUI" })
 local sqlite_preview = require("sql")
 
 vim.api.nvim_create_autocmd("BufWritePost", {

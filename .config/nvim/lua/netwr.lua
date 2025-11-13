@@ -1,72 +1,59 @@
--- File: lua/netrw-popup.lua
+-- ~/.config/nvim/lua/popup_explorer/init.lua
 local M = {}
 
-local popup_winid = nil
-local original_cwd = nil
+function M.open()
+  -- ── Netrw Enhanced Setup ────────────────────────────────
+  vim.g.netrw_banner = 0              -- Hide banner
+  vim.g.netrw_liststyle = 3           -- Tree view
+  vim.g.netrw_browse_split = 0        -- Open in current window
+  vim.g.netrw_altv = 1                -- Split to the right
+  vim.g.netrw_winsize = 25
+  vim.g.netrw_keepdir = 0
+  vim.g.netrw_localcopydircmd = 'cp -r'
 
-function M.toggle_netrw_popup()
-    if popup_winid and vim.api.nvim_win_is_valid(popup_winid) then
-        -- Close the existing popup
-        vim.api.nvim_win_close(popup_winid, true)
-        popup_winid = nil
-        -- Restore original working directory if it was changed
-        if original_cwd then
-            vim.cmd('cd ' .. vim.fn.fnameescape(original_cwd))
-            original_cwd = nil
-        end
-        return
-    end
+  -- ── Open Explorer ───────────────────────────────────────
+  vim.cmd("vertical Lexplore")
+  vim.cmd("vertical resize 30")
 
-    -- Save original working directory
-    original_cwd = vim.fn.getcwd()
+  -- ── Netrw Keybindings Setup ─────────────────────────────
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "netrw",
+    callback = function()
+      local opts = { buffer = true, noremap = true, silent = true }
 
-    -- Create a temporary buffer
-    local buf = vim.api.nvim_create_buf(false, true)
+      -- File/Dir management
+      vim.keymap.set('n', 'n', ':call NetrwNewFile()<CR>', opts) -- New file
+      vim.keymap.set('n', 'N', ':call NetrwNewDir()<CR>', opts)  -- New directory
 
-    -- Set up Netrw in the buffer
-    vim.api.nvim_buf_set_option(buf, 'buftype', 'nofile')
-    vim.api.nvim_buf_set_option(buf, 'bufhidden', 'wipe')
-    vim.api.nvim_buf_set_option(buf, 'swapfile', false)
+      -- Refresh & Hidden toggle
+      vim.keymap.set('n', 'r', ':Rexplore<CR>', opts) -- Refresh
+      vim.keymap.set('n', '.', 'gh', opts)            -- Toggle hidden files
 
-    -- Calculate dimensions (60% of current window)
-    local width = math.floor(vim.o.columns * 0.6)
-    local height = math.floor(vim.o.lines * 0.6)
-    local col = math.floor((vim.o.columns - width) / 2)
-    local row = math.floor((vim.o.lines - height) / 2)
+      -- Open in splits or tabs
+      vim.keymap.set('n', 'v', '<C-w>v', opts)        -- Open in vertical split
+      vim.keymap.set('n', 's', '<C-w>s', opts)        -- Open in horizontal split
+      vim.keymap.set('n', 't', ':tabnew %<CR>', opts) -- Open in new tab
 
-    -- Create the popup window
-    popup_winid = vim.api.nvim_open_win(buf, true, {
-        relative = 'editor',
-        width = width,
-        height = height,
-        col = col,
-        row = row,
-        style = 'minimal',
-        border = 'rounded'
-    })
+      -- Quit manually
+      vim.keymap.set('n', 'q', ':bd<CR>', opts)       -- Quit explorer
 
-    -- Open Netrw in the popup
-    vim.cmd('edit .')
-
-    -- Set up autocommands to clean up when the popup is closed
-    vim.api.nvim_create_autocmd('WinClosed', {
-        buffer = buf,
+      -- ── Auto close when file opened ─────────────────────
+      vim.api.nvim_create_autocmd("BufEnter", {
+        group = vim.api.nvim_create_augroup("AutoCloseNetrw", { clear = true }),
         callback = function()
-            if popup_winid and vim.api.nvim_win_is_valid(popup_winid) then
-                vim.api.nvim_win_close(popup_winid, true)
+          local ft = vim.bo.filetype
+          if ft ~= "netrw" then
+            for _, win in ipairs(vim.api.nvim_list_wins()) do
+              local buf = vim.api.nvim_win_get_buf(win)
+              if vim.bo[buf].filetype == "netrw" then
+                vim.api.nvim_win_close(win, true)
+              end
             end
-            popup_winid = nil
-            if original_cwd then
-                vim.cmd('cd ' .. vim.fn.fnameescape(original_cwd))
-                original_cwd = nil
-            end
+          end
         end,
-        once = true
-    })
-
-    -- Set keymaps for easier navigation
-    vim.api.nvim_buf_set_keymap(buf, 'n', 'q', '<cmd>lua require("netrw-popup").toggle_netrw_popup()<CR>', {noremap = true, silent = true})
-    vim.api.nvim_buf_set_keymap(buf, 'n', '<Esc>', '<cmd>lua require("netrw-popup").toggle_netrw_popup()<CR>', {noremap = true, silent = true})
+      })
+    end,
+  })
 end
 
 return M

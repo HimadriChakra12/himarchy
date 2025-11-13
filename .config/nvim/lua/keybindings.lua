@@ -69,6 +69,3 @@ vim.keymap.set("n", "<leader>bp", pin_buf.toggle_pin, { desc = "Pin buffer" })
 
 -- Open pinned + normal buffer list (pinned first)
 vim.keymap.set("n", "<leader><leader>", pin_buf.buffers_with_pins, { desc = "Find buffers (pinned first)" })
-
-
-vim.keymap.set("n", "<leader>s", ":Sl<CR>", { noremap = true, silent = true })
