@@ -152,6 +152,17 @@ elif [[ "$query" == %* ]]; then
     fi
     exit 0
 
+elif [[ "$query" == "," ]]; then
+    if ! bash "$HOME/.config/hypr/scripts/fzf-nova/_cmus,--.control.music.player"; then
+        notify-send "Couldn't use cmus"
+    fi
+    exit 0
+
+elif [[ "$query" == ":" ]]; then
+    if ! bash "$HOME/.config/hypr/scripts/fzf-nova/_fkill,--.process.killer"; then
+        notify-send "Couldn't use fkill"
+    fi
+    exit 0
 else
     # --- APPLICATION MODE ---
     [ -z "$choice" ] && exit 0
