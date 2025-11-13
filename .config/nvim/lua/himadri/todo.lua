@@ -3,7 +3,7 @@ local M = {}
 
 -- Open a .todo file in a floating popup
 function M.open_popup(filepath)
-  filepath = filepath or vim.fn.expand("%:p")  -- default: current file
+  filepath = vim.fn.expand(filepath or "%:p")  -- normalize path
 
   -- Read file contents
   local lines = {}
@@ -17,11 +17,14 @@ function M.open_popup(filepath)
   local row = math.floor((vim.o.lines - height) / 2)
   local col = math.floor((vim.o.columns - width) / 2)
 
-  -- Create a scratch buffer
-  local buf = vim.api.nvim_create_buf(false, true)
+  -- Create a buffer (not listed, but writable)
+  local buf = vim.api.nvim_create_buf(true, false)
+  vim.api.nvim_buf_set_name(buf, filepath)
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
   vim.api.nvim_buf_set_option(buf, "filetype", "todo")
-  vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
+  vim.api.nvim_buf_set_option(buf, "bufhidden", "hide")
+  vim.api.nvim_buf_set_option(buf, "modifiable", true)
+  vim.api.nvim_buf_set_option(buf, "readonly", false)
 
   -- Create floating window
   local win = vim.api.nvim_open_win(buf, true, {
@@ -38,10 +41,24 @@ function M.open_popup(filepath)
   vim.wo[win].wrap = true
   vim.wo[win].number = true
 
-  -- Setup folds, syntax, and keymaps for this buffer
+  -- Setup folds, syntax, and keymaps
   M.setup_folds()
   M.setup_syntax()
   M.setup_keymaps()
+
+  -- Save on write command
+  vim.api.nvim_buf_create_user_command(buf, "TodoWrite", function()
+    local new_lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+    local ok, err = pcall(vim.fn.writefile, new_lines, filepath)
+    if ok then
+      vim.notify("Saved to " .. filepath, vim.log.levels.INFO)
+    else
+      vim.notify("Error saving: " .. err, vim.log.levels.ERROR)
+    end
+  end, {})
+
+  -- Keymap: <leader>w to save
+  vim.keymap.set("n", "<leader>w", ":TodoWrite<CR>", { buffer = buf, noremap = true, silent = true })
 end
 
 -- --------------------------
@@ -155,9 +172,9 @@ vim.cmd [[
   augroup TodoFile
     autocmd!
     autocmd BufRead,BufNewFile *.todo setlocal filetype=todo
-    autocmd FileType todo lua require('todo').setup_syntax()
-    autocmd FileType todo lua require('todo').setup_keymaps()
-    autocmd FileType todo lua require('todo').setup_folds()
+    autocmd FileType todo lua require('himadri.todo').setup_syntax()
+    autocmd FileType todo lua require('himadri.todo').setup_keymaps()
+    autocmd FileType todo lua require('himadri.todo').setup_folds()
   augroup END
 ]]
 
