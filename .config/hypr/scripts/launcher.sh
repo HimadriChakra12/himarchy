@@ -56,7 +56,7 @@ if [[ ! -f "$CACHE_FILE" ]]; then
 else
     last_update=$(stat -c %Y "$CACHE_FILE" 2>/dev/null)
     now=$(date +%s)
-    if (( now - last_update > 1 )) || find "$APPLICATION_DIR" -type f -name '*.desktop' -newer "$CACHE_FILE" | grep -q .; then
+    if (( now - last_update > 0 )) || find "$APPLICATION_DIR" -type f -name '*.desktop' -newer "$CACHE_FILE" | grep -q .; then
         update_cache_bg
     fi
 fi
@@ -101,10 +101,10 @@ if [[ "$query" == '$>' ]]; then
     exit 0
 
 elif [[ "$query" == \$* ]]; then
-    # --- NORMAL FILE SEARCH ---
+    # --- 1. INITIALIZE & CLEAN SEARCH ARGUMENT ---
     search_arg="${query:1}"
-    search_arg="${search_arg#"${search_arg%%[![:space:]]*}"}"
-    search_arg="${search_arg%"${search_arg##*[![:space:]]}"}"
+    search_arg="${search_arg#"${search_arg%%[![:space:]]*}"}" # Trim leading whitespace
+    search_arg="${search_arg%"${search_arg##*[![:space:]]}"}" # Trim trailing whitespace
 
     if [[ -z "$search_arg" ]]; then
         search_root="$HOME"
@@ -121,16 +121,24 @@ elif [[ "$query" == \$* ]]; then
     search_root="${search_root/#\~/$HOME}"
     [[ ! -d "$search_root" ]] && search_root="$HOME"
 
-    # --- Save to history ---
+    HIST_FILE="/tmp/fzf_search_history"
+    MAX_HISTORY=20
+    
     grep -vFx "$search_root" "$HIST_FILE" 2>/dev/null | tail -n "$((MAX_HISTORY-1))" > "$HIST_FILE.tmp"
     printf '%s\n' "$search_root" >> "$HIST_FILE.tmp"
     mv "$HIST_FILE.tmp" "$HIST_FILE"
-
     result=$(find "$search_root" -type f 2>/dev/null | sed "s|^$HOME|~|" | fzf --prompt="🔍 File: " --reverse --info=hidden)
-    result="${result/#\~/$HOME}"
-    [ -n "$result" ] && xdg-open "$result" >/dev/null 2>&1 &
+    
+    if [ -n "$result" ]; then
+        FILE_PATH="${result/#\~/$HOME}" 
+        TMUX_SESSION="apps"
+        cmd="xdg-open \"$FILE_PATH\""
+        tmux has-session -t "$TMUX_SESSION" 2>/dev/null || tmux new-session -d -s "$TMUX_SESSION"
+        tmux send-keys -t "$TMUX_SESSION" "bash -c '$(echo "$cmd & disown")'" C-m
+    fi
+    
     exit 0
-
+    
 elif [[ "$query" == %* ]]; then
     # --- WINDOW SEARCH MODE ---
     if command -v hyprctl >/dev/null 2>&1; then
