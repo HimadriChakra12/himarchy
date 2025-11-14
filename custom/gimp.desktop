@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Gimp
+Comment=A open source flexible photoshop alternative
+Exec=gimp
+Icon=gimp
+Terminal=false
+Categories=Utility;Network;
+
