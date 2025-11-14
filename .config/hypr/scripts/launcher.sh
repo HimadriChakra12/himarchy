@@ -161,13 +161,13 @@ elif [[ "$query" == %* ]]; then
     exit 0
 
 elif [[ "$query" == "," ]]; then
-    if ! bash "$HOME/.config/hypr/scripts/fzf-nova/_cmus,--.control.music.player"; then
+    if ! bash "$HOME/.config/hypr/scripts/Launcher/cmus"; then
         notify-send "Couldn't use cmus"
     fi
     exit 0
 
 elif [[ "$query" == ":" ]]; then
-    if ! bash "$HOME/.config/hypr/scripts/fzf-nova/_fkill,--.process.killer"; then
+    if ! bash "$HOME/.config/hypr/scripts/Launcher/fkill"; then
         notify-send "Couldn't use fkill"
     fi
     exit 0
