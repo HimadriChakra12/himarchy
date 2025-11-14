@@ -3,7 +3,7 @@
 # desc:   fzf kill processes similar to htop
 # depend: fzf coreutils sed awk findutils procps-ng util-linux
 
-export FZF_DEFAULT_OPTS="-e -i --prompt='fkill >>> kill process: ' --info=hidden --layout=reverse --scroll-off=5 --tiebreak=index --bind 'home:first,end:last'"
+export FZF_DEFAULT_OPTS="-e -i --prompt='kill: ' --info=hidden --layout=reverse --scroll-off=5 --tiebreak=index --bind 'home:first,end:last'"
 
 # fkill - kill processes - list only the ones you can kill. Modified the earlier script.
 fkill() {

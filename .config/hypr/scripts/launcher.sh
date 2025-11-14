@@ -139,7 +139,7 @@ elif [[ "$query" == \$* ]]; then
     
     exit 0
     
-elif [[ "$query" == %* ]]; then
+elif [[ "$query" == "/" ]]; then
     # --- WINDOW SEARCH MODE ---
     if command -v hyprctl >/dev/null 2>&1; then
         mapfile -t windows < <(hyprctl clients -j | jq -r '.[] | "\(.class) - \(.title)"')
