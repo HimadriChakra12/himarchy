@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+set -e
+
+AUR_CACHE="$HOME/.cache/aur-packages.txt"
+
+# Fetch AUR package list (cached)
+update_aur_cache() {
+  if [[ ! -f "$AUR_CACHE" ]]; then
+    echo "Downloading AUR package list..."
+    mkdir -p "$(dirname "$AUR_CACHE")"
+    curl -s "https://aur.archlinux.org/packages.gz" | gunzip > "$AUR_CACHE"
+  fi
+}
+
+# List: repo | pkg
+fetch_official() {
+  pacman -Sl | awk '{print "repo | " $2}' | sort -u
+}
+
+fetch_aur() {
+  awk '{print "aur  | " $1}' "$AUR_CACHE"
+}
+
+preview_cmd='
+type=$(echo {} | cut -d"|" -f1 | tr -d " ")
+pkg=$(echo {} | cut -d"|" -f2 | tr -d " ")
+
+if [[ $type == "repo" ]]; then
+  pacman -Si "$pkg" 2>/dev/null || echo "No pacman info"
+else
+  yay -Si "$pkg" 2>/dev/null || echo "No AUR info"
+fi
+'
+
+pick_pkg() {
+  (fetch_official; fetch_aur) |
+    fzf --prompt="Search package > " \
+    --multi \
+    --preview "$preview_cmd" \
+    --preview-window=right:50%:wrap \
+    --layout=reverse \
+    --height=100%
+  }
+
+install_pkg() {
+  type="$1"
+  pkg="$2"
+
+  if [[ $type == "repo" ]]; then
+    sudo pacman -S "$pkg"
+  else
+    yay -S "$pkg"
+  fi
+}
+
+### Main
+update_aur_cache
+
+choice=$(pick_pkg)
+[[ -z "$choice" ]] && exit 0
+
+type=$(echo "$choice" | cut -d"|" -f1 | tr -d " ")
+pkg=$(echo "$choice"  | cut -d"|" -f2 | tr -d " ")
+
+echo "Install $pkg ? (y/N)"
+read yn
+
+[[ "$yn" =~ ^[Yy]$ ]] && install_pkg "$type" "$pkg"
