@@ -166,6 +166,12 @@ elif [[ "$query" == "," ]]; then
     fi
     exit 0
 
+elif [[ "$query" == "." ]]; then
+    if ! bash "$HOME/.config/hypr/scripts/Launcher/character.compose"; then
+        notify-send "Couldn't use cmus"
+    fi
+    exit 0
+
 elif [[ "$query" == ":" ]]; then
     if ! bash "$HOME/.config/hypr/scripts/Launcher/fkill"; then
         notify-send "Couldn't use fkill"
