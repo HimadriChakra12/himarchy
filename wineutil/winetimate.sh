@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# wine-supercharged-v3.2.sh
-# Wine Supercharger v3.2 — Proton-GE style, no repeated reg spam, fonts & manifests auto
+# wine-supercharged-v3.3.sh
+# Wine Supercharger v3.3 — Proton-GE style, auto Vulkan driver, fonts/manifests, wrapper auto
 
 IFS=$'\n\t'
 
@@ -37,7 +37,7 @@ EOF
   esac
 done
 
-echo "🍷 Wine Supercharger v3.2 (Proton-GE style, fully automated fonts/manifests)"
+echo "🍷 Wine Supercharger v3.3 (Proton-GE style, fully automated Vulkan, fonts, manifests)"
 echo "Prefix: $WINEPREFIX"
 echo "Arch:   $WINEARCH_DEFAULT"
 echo
@@ -104,6 +104,34 @@ detect_gpu() {
   fi
 }
 
+download_vulkan_driver() {
+  local gpu=$1
+  local icd_path="/usr/share/vulkan/icd.d"
+
+  mkdir -p "$icd_path"
+
+  case "$gpu" in
+    intel)
+      echo "Intel GPU detected: using intel_icd.x86_64.json"
+      VK_ICD="$icd_path/intel_icd.x86_64.json"
+      ;;
+    amd)
+      echo "AMD GPU detected: using radeon_icd.x86_64.json"
+      VK_ICD="$icd_path/radeon_icd.x86_64.json"
+      ;;
+    nvidia)
+      echo "NVIDIA GPU detected: using nvidia_icd.json"
+      VK_ICD="$icd_path/nvidia_icd.x86_64.json"
+      ;;
+    *)
+      echo "Unknown GPU: Vulkan may not work"
+      VK_ICD=""
+      ;;
+  esac
+
+  echo "$VK_ICD"
+}
+
 fix_broken_desktop_files() {
   local bad
   bad=$(grep -L "^\[Desktop Entry\]" -R ~/.local/share/applications 2>/dev/null || true)
@@ -130,7 +158,6 @@ create_prefix() {
 run_winetricks_core() {
   export WINEPREFIX="$WINEPREFIX"
   echo "Installing core fonts + runtimes + MS Common Controls..."
-  # Using 'allfonts' + comctl32
   winetricks -q corefonts comctl32 vcrun2019 vcrun2022 || echo "Core install failed"
 }
 
@@ -146,22 +173,20 @@ install_dotnet() {
   fi
 }
 
-# ------------------------
-# Fonts + Manifest pre-registration (avoid repeated fixme)
-# ------------------------
 pre_register_manifests() {
   cat > /tmp/manifest.reg <<'REG'
 [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\SideBySide\Winners]
 "Microsoft.Windows.Common-Controls"="6.0.0.0"
 REG
-
   wine regedit /tmp/manifest.reg || echo "Manifest pre-registration failed"
   rm -f /tmp/manifest.reg
 }
 
 write_env_and_wrapper() {
   mkdir -p "$WINEPREFIX"
+
   GPU_DRIVER=$(detect_gpu)
+  VK_ICD=$(download_vulkan_driver "$GPU_DRIVER")
 
   cat > "$WINEPREFIX/$ENVFILE_NAME" <<EOF
 export WINEPREFIX="$WINEPREFIX"
@@ -176,16 +201,81 @@ export VKD3D_CONFIG=main
 export SUPERWINE_FSR=0
 export __GL_THREADED_OPTIMIZATIONS=1
 export SUPERWINE_GPU="$GPU_DRIVER"
+export VK_ICD_FILENAMES="$VK_ICD"
+export VK_LAYER_PATH=/usr/share/vulkan/explicit_layer.d
 EOF
 
   cat > "$WRAPPER" <<'EOF'
 #!/usr/bin/env bash
 PREFIX_FILE="$HOME/.wine-super/superwine.env"
 if [ -f "$PREFIX_FILE" ]; then source "$PREFIX_FILE"; fi
-if [ "${SUPERWINE_FSR:-0}" -eq 1 ]; then
-  echo "FSR enabled for this run"
+
+# Defaults
+RESOLUTION=""
+FULLSCREEN=0
+FSR=0
+ARGS=()
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --res)
+            RESOLUTION="$2"
+            shift 2
+            ;;
+        --fullscreen)
+            FULLSCREEN=1
+            shift
+            ;;
+        --fsr)
+            FSR="$2"
+            shift 2
+            ;;
+        *)
+            ARGS+=("$1")
+            shift
+            ;;
+    esac
+done
+
+# Interactive resolution selection if --res is provided without a value
+if [[ -z "$RESOLUTION" && ${#ARGS[@]} -gt 0 ]]; then
+    echo "Select resolution:"
+    echo "1) 1280x720 (720p)"
+    echo "2) 1920x1080 (1080p)"
+    echo "3) 2560x1440 (1440p)"
+    read -rp "Enter choice [1-3, default 2]: " choice
+    case "$choice" in
+        1) RESOLUTION="1280x720" ;;
+        3) RESOLUTION="2560x1440" ;;
+        *) RESOLUTION="1920x1080" ;;  # default
+    esac
 fi
-exec wine "$@"
+
+# Default resolution if still empty
+RESOLUTION=${RESOLUTION:-1920x1080}
+WIDTH=${RESOLUTION%x*}
+HEIGHT=${RESOLUTION#*x}
+
+export WINEPREFIX
+export WINEARCH
+export WINEDEBUG
+export DXVK_HUD
+export DXVK_STATE_CACHE
+export SUPERWINE_GPU
+export SUPERWINE_FSR=$FSR
+
+# DXVK fullscreen/windowed
+if [[ $FULLSCREEN -eq 1 ]]; then
+    export DXVK_FULLSCREEN=1
+else
+    export DXVK_FULLSCREEN=0
+    export WINE_FULLSCREEN_WIDTH=$WIDTH
+    export WINE_FULLSCREEN_HEIGHT=$HEIGHT
+fi
+
+# Launch the game
+wine "${ARGS[@]}"
 EOF
 
   chmod +x "$WRAPPER"
@@ -205,7 +295,6 @@ apply_registry_tweaks() {
 [HKEY_CURRENT_USER\Software\Wine\Explorer]
 "Desktop"="1920x1080"
 REG
-
   wine regedit /tmp/superwine.reg
   rm -f /tmp/superwine.reg
 }
@@ -219,7 +308,6 @@ fix_services_for_rpc() {
 [HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\PlugPlay]
 "Start"=dword:00000002
 REG
-
   wine regedit /tmp/wine_services.reg
   rm -f /tmp/wine_services.reg
 }
@@ -249,9 +337,10 @@ main() {
   fix_services_for_rpc
 
   echo
-  echo "✅ Wine Supercharger v3.2 setup complete!"
+  echo "✅ Wine Supercharger v3.3 setup complete!"
   echo "Run apps via wrapper: $WRAPPER <program.exe> [args]"
-  echo "Edit $WINEPREFIX/$ENVFILE_NAME to toggle SUPERWINE_FSR=1 per-game."
+  notify-send "See the variables.txt"
+  "
 }
 
 main "$@"

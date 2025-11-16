@@ -1,0 +1,6 @@
+# Intel Vulkan variables
+export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/intel_icd.x86_64.json
+export VK_LAYER_PATH=/usr/share/vulkan/explicit_layer.d
+
+if you are in Intel GPU, add to "$HOME/run-superwine"
+
