@@ -33,3 +33,13 @@ chmod +x symlink.sh defaults.sh packages.sh remove-application.sh
 ./scripts/packages.sh "$NOCONFIRM_FLAG"
 ./scripts/remove-application.sh
 ./scripts/defaults.sh
+
+RUN_COMMAND= read -p "Wanna run winetimate[best wine tweaks] GUI?"  # change to false to skip
+
+if [ "$RUN_COMMAND" = y ]; then
+    echo "Running the command..."
+    ./wineutil/superwine_gui & disown
+else
+    echo "Skipping the command."
+fi
+
