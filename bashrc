@@ -30,6 +30,7 @@ alias update="yay"
 
 alias ep="nvim ~/.bashrc"
 alias sour="source ~/.bashrc"
+alias l="ls"
 
 alias v="nvim"
 alias q="exit"
@@ -244,4 +245,15 @@ dot(){
     cp ~/.local/share/nemo/scripts ~/himarchy/nemo -r
     cp ~/.local/share/applications/custom ~/himarchy -r
     cp ~/bin ~/himarchy -r
+}
+
+mkcd(){
+  location="$1"
+  if [ -z "$location" ]; then
+    echo "Usage: $0 <url>"
+    exit 1
+  fi
+  mkdir $location && cd $location
+  # Output anchored regex
+  pwd
 }
