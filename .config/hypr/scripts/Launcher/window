@@ -13,3 +13,4 @@ elif command -v wmctrl >/dev/null 2>&1; then
     win_title="${selected#*- }"
     wmctrl -a "$win_title"
   fi
+fi

@@ -141,21 +141,7 @@ elif [[ "$query" == \$* ]]; then
     
 elif [[ "$query" == "/" ]]; then
     # --- WINDOW SEARCH MODE ---
-    if command -v hyprctl >/dev/null 2>&1; then
-        mapfile -t windows < <(hyprctl clients -j | jq -r '.[] | "\(.class) - \(.title)"')
-        selected=$(printf '%s\n' "${windows[@]}" | fzf --prompt="🪟 Window: " --reverse --info=hidden)
-        if [[ -n "$selected" ]]; then
-            win_title="${selected#*- }"
-            hyprctl dispatch focuswindow title:"$win_title"
-        fi
-    elif command -v wmctrl >/dev/null 2>&1; then
-        mapfile -t windows < <(wmctrl -lx | awk '{ $3=""; print $2 " - " substr($0, index($0,$4)) }')
-        selected=$(printf '%s\n' "${windows[@]}" | fzf --prompt="🪟 Window: " --reverse --info=hidden)
-        if [[ -n "$selected" ]]; then
-            win_title="${selected#*- }"
-            wmctrl -a "$win_title"
-        fi
-    else
+    if ! bash "$HOME/.config/hypr/scripts/Launcher/window"; then
         notify-send "Window search not supported (no hyprctl/wmctrl)"
     fi
     exit 0
