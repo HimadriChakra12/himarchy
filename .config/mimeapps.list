@@ -46,6 +46,8 @@ application/xml=nvim.desktop
 text/xml=nvim.desktop
 application/vnd.microsoft.portable-executable=wine.desktop
 image/svg+xml=qimgv.desktop
+text/markdown=okularApplication_md.desktop
 
 [Added Associations]
 application/vnd.microsoft.portable-executable=wine.desktop;
+text/markdown=okularApplication_md.desktop;
