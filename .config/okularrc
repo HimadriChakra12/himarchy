@@ -5,6 +5,9 @@ FullScreen=false
 LockSidebar=true
 ShowSidebar=false
 
+[MainWindow]
+MenuBar=Disabled
+
 [Recent Files]
 File1[$e]=$HOME/docs.md/chem-1-4.md
 File2[$e]=$HOME/Downloads/pdf/The C Programming Language (Kernighan Ritchie).pdf
