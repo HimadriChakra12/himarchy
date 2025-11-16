@@ -29,7 +29,7 @@ cd "$HOME/himarchy" || exit 1
 chmod +x symlink.sh defaults.sh packages.sh remove-application.sh
 
 # Run scripts
-./symlink.sh
-./packages.sh "$NOCONFIRM_FLAG"
-./remove-application.sh
-./defaults.sh
+./scripts/symlink.sh
+./scripts/packages.sh "$NOCONFIRM_FLAG"
+./scripts/remove-application.sh
+./scripts/defaults.sh
