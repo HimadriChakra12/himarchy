@@ -35,7 +35,7 @@ langs=(
     "cmake"
     "make"
     "gcc"
-    "golang"
+    "go"
 )
 wine=(
     "wine-mono"
