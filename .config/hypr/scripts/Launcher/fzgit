@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+TMUX_SESSION="apps"
+
+########################################
+# FIND GIT DIRECTORIES
+########################################
+find_git_dirs() {
+  find "$HOME" -maxdepth 5 -type d -name ".git" 2>/dev/null | while read -r d; do
+    echo "${d%/.git}"
+  done
+}
+
+########################################
+# LIST REPOS WITH [Modified]
+########################################
+list_repos() {
+  while IFS= read -r repo; do
+    cd "$repo" || continue
+    if ! git diff-index --quiet HEAD -- 2>/dev/null; then
+      echo "$repo [Modified]"
+    else
+      echo "$repo"
+    fi
+  done < <(find_git_dirs)
+}
+
+########################################
+# REPO PICKER
+########################################
+selected=$(list_repos | fzf --prompt="Git Repos: ")
+selected_clean=$(echo "$selected" | sed 's/ \[Modified\]$//')
+
+[ -z "$selected_clean" ] && exit
+
+# build the command
+cmd="alacritty --title "lazygit" -e bash -c 'cd \"$selected_clean\" && lazygit' &"
+
+# create tmux session if it doesn't exist
+tmux has-session -t "$TMUX_SESSION" 2>/dev/null || tmux new-session -d -s "$TMUX_SESSION"
+
+# send the command to tmux
+tmux send-keys -t "$TMUX_SESSION" "$cmd" C-m

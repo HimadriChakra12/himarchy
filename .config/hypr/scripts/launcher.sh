@@ -184,6 +184,12 @@ elif [[ "$query" == ";" ]]; then
     fi
     exit 0
 
+elif [[ "$query" == "-" ]]; then
+    if ! bash "$HOME/.config/hypr/scripts/Launcher/fzgit"; then
+        notify-send "Couldn't use fkill"
+    fi
+    exit 0
+
 else
     # --- APPLICATION MODE ---
     [ -z "$choice" ] && exit 0
