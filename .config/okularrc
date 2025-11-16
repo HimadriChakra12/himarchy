@@ -1,0 +1,18 @@
+[Desktop Entry]
+FullScreen=false
+
+[General]
+LockSidebar=true
+ShowSidebar=false
+
+[Recent Files]
+File1[$e]=$HOME/docs.md/chem-1-4.md
+File2[$e]=$HOME/Downloads/pdf/The C Programming Language (Kernighan Ritchie).pdf
+Name1[$e]=chem-1-4.md
+Name2[$e]=The C Programming Language (Kernighan Ritchie).pdf
+
+[Shortcut Schemes]
+Current Scheme=Default
+
+[UiSettings]
+ColorScheme=BreezeDark
