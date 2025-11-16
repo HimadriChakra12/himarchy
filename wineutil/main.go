@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"time"
 
 	"fyne.io/fyne/v2"
@@ -27,7 +29,7 @@ var stopChan chan struct{}
 func main() {
 	a := app.New()
 	w := a.NewWindow("Winetimate - Wine Supercharger GUI")
-	w.Resize(fyne.NewSize(900, 600))
+	w.Resize(fyne.NewSize(1000, 600))
 
 	// Channels for UI updates
 	stageUpdates := make(chan struct {
@@ -72,12 +74,6 @@ func main() {
 	progress.Min = 0
 	progress.Max = 1
 
-	// Logs
-	logs := widget.NewMultiLineEntry()
-	logs.Wrapping = fyne.TextWrapWord
-	logs.SetMinRowsVisible(25)
-	logsScroll := container.NewVScroll(logs)
-
 	// Buttons
 	var startButton, fullButton, cancelButton *widget.Button
 	startButton = widget.NewButtonWithIcon("Start Installation", theme.MediaPlayIcon(), func() {
@@ -103,28 +99,53 @@ func main() {
 
 	buttons := container.NewHBox(startButton, fullButton, cancelButton)
 
-	// Left sidebar for stages
-	sidebar := container.NewVBox(
+	// Logs panel (below buttons)
+	logs := widget.NewMultiLineEntry()
+	logs.Wrapping = fyne.TextWrapWord
+	logs.SetMinRowsVisible(150)
+	logsScroll := container.NewVScroll(logs)
+
+	// Profiles panel (dynamic)
+	profilesBox := container.NewVBox(
+		widget.NewLabelWithStyle("Profiles", fyne.TextAlignLeading, fyne.TextStyle{Bold: true}),
+	)
+	profilesDir := filepath.Join(os.Getenv("HOME"), "wine_profiles")
+	if entries, err := os.ReadDir(profilesDir); err == nil {
+		for _, entry := range entries {
+			if entry.IsDir() {
+				continue
+			}
+			profilePath := filepath.Join(profilesDir, entry.Name())
+			btn := widget.NewButton(entry.Name(), func(path string) func() {
+				return func() {
+					go runProfile(path, logsChan)
+				}
+			}(profilePath))
+			profilesBox.Add(btn)
+		}
+	} else {
+		profilesBox.Add(widget.NewLabel("No profiles found in ~/wine_profiles"))
+	}
+
+	// Left sidebar for stages + options + buttons + logs
+	leftPanel := container.NewVBox(
 		widget.NewLabelWithStyle("Stages", fyne.TextAlignLeading, fyne.TextStyle{Bold: true}),
 		stageContainer,
-	)
-
-	// Right panel for options + progress + logs + buttons
-	rightPanel := container.NewVBox(
+		widget.NewSeparator(),
 		optionsBox,
 		widget.NewSeparator(),
-		progress,
+		buttons,
 		widget.NewSeparator(),
 		widget.NewLabelWithStyle("Logs:", fyne.TextAlignLeading, fyne.TextStyle{Bold: true}),
 		logsScroll,
 		widget.NewSeparator(),
-		buttons,
+		progress,
 	)
 
-	// Main layout: sidebar + right panel
+	// Main layout: left panel + profiles panel
 	mainContent := container.New(layout.NewHBoxLayout(),
-		container.NewMax(sidebar),
-		container.NewMax(rightPanel),
+		container.NewMax(leftPanel),
+		container.NewMax(profilesBox),
 	)
 
 	// Add padding and title
@@ -134,8 +155,7 @@ func main() {
 		mainContent,
 	)
 
-	// **UI update goroutine**
-	// Runs before ShowAndRun(), safe in Fyne v2.7
+	// UI update goroutine
 	go func() {
 		for {
 			select {
@@ -156,7 +176,7 @@ func main() {
 	w.ShowAndRun()
 }
 
-// runInstallation executes stages in background safely
+// runInstallation executes winetimate stages in background safely
 func runInstallation(stages []*Stage, fast, dotnet bool, stopChan chan struct{},
 	stageUpdates chan struct{ stage *Stage; text string },
 	logsChan chan string,
@@ -212,7 +232,7 @@ func runInstallation(stages []*Stage, fast, dotnet bool, stopChan chan struct{},
 	startButton.Enable()
 }
 
-// runStage executes the command silently
+// runStage executes the winetimate script with appropriate args
 func runStage(name string, fast, dotnet bool) error {
 	script := "./winetimate.sh"
 	args := []string{}
@@ -230,4 +250,33 @@ func runStage(name string, fast, dotnet bool) error {
 	cmd.Env = os.Environ()
 
 	return cmd.Run()
+}
+
+// runProfile executes a profile script and streams output to logsChan
+func runProfile(path string, logsChan chan string) {
+	cmd := exec.Command("bash", path)
+	stdout, _ := cmd.StdoutPipe()
+	stderr, _ := cmd.StderrPipe()
+	if err := cmd.Start(); err != nil {
+		logsChan <- fmt.Sprintf("❌ Failed to start profile %s: %v", path, err)
+		return
+	}
+
+	scannerOut := bufio.NewScanner(stdout)
+	scannerErr := bufio.NewScanner(stderr)
+
+	go func() {
+		for scannerOut.Scan() {
+			logsChan <- scannerOut.Text()
+		}
+	}()
+
+	go func() {
+		for scannerErr.Scan() {
+			logsChan <- scannerErr.Text()
+		}
+	}()
+
+	cmd.Wait()
+	logsChan <- fmt.Sprintf("✅ Profile %s finished", filepath.Base(path))
 }
