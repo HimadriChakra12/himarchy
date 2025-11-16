@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=qbittorrent
+Comment=A bittorrent Client
+Exec=qbittorrent
+Icon=qbittorrent
+Terminal=false
+Categories=Utility;Network;
+
