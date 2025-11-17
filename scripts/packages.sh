@@ -9,6 +9,7 @@ packages=(
     "spotify"
     "jdownloader2"
     "qbittorrent"
+    "lollypop"
 )
 editor=(
     "gimp-devel"
