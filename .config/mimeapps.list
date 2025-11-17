@@ -5,7 +5,7 @@ image/gif=qimgv.desktop
 image/webp=qimgv.desktop
 image/bmp=imv.desktop
 image/tiff=imv.desktop
-application/pdf=wine-SumatraPDF.desktop
+application/pdf=okularApplication_pdf.desktop
 text/html=firefox.desktop
 x-scheme-handler/http=firefox.desktop
 x-scheme-handler/https=firefox.desktop
@@ -47,7 +47,10 @@ text/xml=nvim.desktop
 application/vnd.microsoft.portable-executable=wine.desktop
 image/svg+xml=qimgv.desktop
 text/markdown=okularApplication_md.desktop
+application/x-ms-dos-executable=custom-superwine.desktop
+x-scheme-handler/obsidian=obsidian.desktop
 
 [Added Associations]
 application/vnd.microsoft.portable-executable=wine.desktop;
 text/markdown=okularApplication_md.desktop;
+application/pdf=okularApplication_pdf.desktop;

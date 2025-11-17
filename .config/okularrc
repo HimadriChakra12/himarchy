@@ -1,5 +1,7 @@
 [Desktop Entry]
-FullScreen=false
+FullScreen=true
+shouldShowMenuBarComingFromFullScreen=false
+shouldShowToolBarComingFromFullScreen=false
 
 [General]
 LockSidebar=true
@@ -11,8 +13,12 @@ MenuBar=Disabled
 [Recent Files]
 File1[$e]=$HOME/docs.md/chem-1-4.md
 File2[$e]=$HOME/Downloads/pdf/The C Programming Language (Kernighan Ritchie).pdf
+File3[$e]=$HOME/Downloads/Books/epub/C Programming - A Modern Approach - 2nd_Ed(C89, c99) - King by .epub
+File4[$e]=$HOME/Downloads/ABDM/Documents/The C Programming Language (Kernighan Ritchie).pdf
 Name1[$e]=chem-1-4.md
 Name2[$e]=The C Programming Language (Kernighan Ritchie).pdf
+Name3[$e]=C Programming - A Modern Approach - 2nd_Ed(C89, c99) - King by .epub
+Name4[$e]=The C Programming Language (Kernighan Ritchie).pdf
 
 [Shortcut Schemes]
 Current Scheme=Default
