@@ -2,6 +2,6 @@
 Type=Application
 Name=Punisher
 Comment=The Punisher
-Exec=wine "$HOME/.wine/drive_c/Program Files (x86)/MagiPacks/The Punisher/pun.exe"
+Exec= bash -c "cd '$HOME/.wine/drive_c/Program Files (x86)/MagiPacks/The Punisher' && $HOME/wine_profiles/gaming/run-superwine pun.exe --res 1920x1080"
 Icon=spotify
 Categories=Utility;Network;

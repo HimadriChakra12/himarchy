@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=PhotoshopCS6
+Comment=PhotoshopCS6
+Exec= bash -c "cd '$HOME/.wine/drive_c/Program Files/PhotoshopPortable' && $HOME/wine_profiles/gaming/run-superwine PhotoshopCS6Portable.exe --res 1920x1080"
+Icon=spotify
+Categories=Utility
+

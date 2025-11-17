@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=calibre
+GenericName=calibre
+Exec=calibre
+Icon=calibre
+Type=Application
+StartupNotify=true
+Categories=Browser;
+

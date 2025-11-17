@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Encarta
+Comment=Encarta
+Exec=$HOME/run-superwine "$HOME/.wine/drive_c/Program Files (x86)/Microsoft Encarta/Encarta Premium DVD 2009/ENCARTA.EXE"
+Icon=spotify
+Categories=Utility;Network;
+
