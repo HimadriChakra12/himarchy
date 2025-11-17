@@ -1,7 +1,6 @@
 @import "../omarchy/current/theme/waybar.css";
 
 * {
-  background-color: alpha(@background, 0);
   color: @foreground;
 
   border: none;

@@ -3,7 +3,7 @@
   "layer": "bottom",
   "position": "bottom",
   "spacing": 0,
-  "height": 36,
+  "height": 26,
   "margin-bottom": 5,
   "modules-left": [
     "clock",
@@ -209,15 +209,13 @@
     "modules": ["pulseaudio", "custom/volume-slider"]
   },
   "custom/volume-slider": {
-    "format": "{icon}",
-    "on-click": "xdg-terminal-exec --app-id=com.omarchy.Wiremix -e wiremix",
-    "on-click-right": "pamixer -t",
-    "tooltip-format": "Playing at {volume}%",
-    "scroll-step": 5,
-    "format-muted": "",
-    "format-icons": {
-      "default": ["", "", ""]
-    }
+    "exec": "pamixer --get-volume",
+    "exec-on-event": true,
+    "return-type": "json",
+    "interval": 2,
+    "format": "{}",
+    "on-scroll-down": "pamixer -i 5",
+    "on-scroll-up": "pamixer -d 5"
   },
   "group/tray-expander": {
     "orientation": "inherit",
