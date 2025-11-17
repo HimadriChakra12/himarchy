@@ -38,12 +38,12 @@ langs=(
     "gcc"
     "go"
 )
-wine=(
-    "wine-mono"
-    "wine-gecko"
-    "winetricks"
-    "wine"
-)
+#wine=(
+    #"wine-mono"
+    #"wine-gecko"
+    #"winetricks"
+    #"wine"
+#)
 removals=(
     "xournalpp"
     "imv"
@@ -74,7 +74,7 @@ install_category "Languages" "${langs[@]}"
 install_category "Shell tools" "${shell[@]}"
 install_category "Editors" "${editor[@]}"
 install_category "Other Packages" "${packages[@]}"
-install_category "Wine" "${wine[@]}"
+#install_category "Wine" "${wine[@]}"
 flatpak install "${flatpak[@]}"
 
 # Optional: remove unwanted packages
