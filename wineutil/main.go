@@ -29,7 +29,7 @@ var stopChan chan struct{}
 func main() {
 	a := app.New()
 	w := a.NewWindow("Winetimate - Wine Supercharger GUI")
-	w.Resize(fyne.NewSize(1000, 600))
+	w.Resize(fyne.NewSize(1200, 800)) // Increased window size for better layout
 
 	// Channels for UI updates
 	stageUpdates := make(chan struct {
@@ -99,13 +99,33 @@ func main() {
 
 	buttons := container.NewHBox(startButton, fullButton, cancelButton)
 
-	// Logs panel (below buttons)
+	// Logs panel - now as a bottom pane
 	logs := widget.NewMultiLineEntry()
 	logs.Wrapping = fyne.TextWrapWord
-	logs.SetMinRowsVisible(150)
+	logs.SetMinRowsVisible(15) // Increased visible rows
 	logsScroll := container.NewVScroll(logs)
+	logsScroll.SetMinSize(fyne.NewSize(800, 100)) // Larger minimum size for logs
 
-	// Profiles panel (dynamic)
+	// Logs header with clear button
+	clearLogsButton := widget.NewButtonWithIcon("Clear Logs", theme.DeleteIcon(), func() {
+		logs.SetText("")
+	})
+	logsHeader := container.NewHBox(
+		widget.NewLabelWithStyle("Installation Logs", fyne.TextAlignLeading, fyne.TextStyle{Bold: true}),
+		layout.NewSpacer(),
+		clearLogsButton,
+	)
+
+	// Main content area (stages + options + profiles)
+	mainContent := container.NewVBox(
+		widget.NewLabelWithStyle("Stages", fyne.TextAlignLeading, fyne.TextStyle{Bold: true}),
+		stageContainer,
+		optionsBox,
+		buttons,
+		progress,
+	)
+
+	// Profiles panel
 	profilesBox := container.NewVBox(
 		widget.NewLabelWithStyle("Profiles", fyne.TextAlignLeading, fyne.TextStyle{Bold: true}),
 	)
@@ -127,33 +147,44 @@ func main() {
 		profilesBox.Add(widget.NewLabel("No profiles found in ~/wine_profiles"))
 	}
 
-	// Left sidebar for stages + options + buttons + logs
-	leftPanel := container.NewVBox(
-		widget.NewLabelWithStyle("Stages", fyne.TextAlignLeading, fyne.TextStyle{Bold: true}),
-		stageContainer,
-		widget.NewSeparator(),
-		optionsBox,
-		widget.NewSeparator(),
-		buttons,
-		widget.NewSeparator(),
-		widget.NewLabelWithStyle("Logs:", fyne.TextAlignLeading, fyne.TextStyle{Bold: true}),
-		logsScroll,
-		widget.NewSeparator(),
-		progress,
-	)
+	// Left panel with main content
+	leftPanel := container.NewVBox(mainContent)
 
-	// Main layout: left panel + profiles panel
-	mainContent := container.New(layout.NewHBoxLayout(),
+	// Right panel with profiles
+	rightPanel := container.NewVBox(profilesBox)
+
+	// Top content area (stages + profiles)
+	topContent := container.New(layout.NewHBoxLayout(),
 		container.NewMax(leftPanel),
-		container.NewMax(profilesBox),
+		container.NewMax(rightPanel),
 	)
 
-	// Add padding and title
-	content := container.New(layout.NewVBoxLayout(),
-		widget.NewLabelWithStyle("Winetimate - Wine Supercharger GUI", fyne.TextAlignCenter, fyne.TextStyle{Bold: true}),
-		widget.NewSeparator(),
-		mainContent,
+	// Logs pane at the bottom
+	logsPane := container.NewBorder(
+		logsHeader,
+		nil,
+		nil,
+		nil,
+		logsScroll,
 	)
+
+	// Main layout using Border to pin logs to bottom
+	content := container.NewBorder(
+		container.NewVBox(
+			widget.NewLabelWithStyle("Winetimate - Wine Supercharger GUI", fyne.TextAlignCenter, fyne.TextStyle{Bold: true}),
+			widget.NewSeparator(),
+		),
+		nil,
+		nil,
+		nil,
+		container.NewVSplit(
+			topContent,
+			logsPane,
+		),
+	)
+
+	// Set the split position to give more space to logs
+	content.Objects[0].(*container.Split).SetOffset(0.6) // 60% top, 40% bottom logs
 
 	// UI update goroutine
 	go func() {
