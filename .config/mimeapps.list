@@ -49,8 +49,10 @@ image/svg+xml=qimgv.desktop
 text/markdown=okularApplication_md.desktop
 application/x-ms-dos-executable=custom-superwine.desktop
 x-scheme-handler/obsidian=obsidian.desktop
+audio/mpeg=org.gnome.Lollypop.desktop
 
 [Added Associations]
 application/vnd.microsoft.portable-executable=wine.desktop;
 text/markdown=okularApplication_md.desktop;
 application/pdf=okularApplication_pdf.desktop;
+audio/mpeg=org.gnome.Lollypop.desktop;
