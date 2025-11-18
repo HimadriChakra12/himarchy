@@ -76,7 +76,7 @@
   "cpu": {
     "interval": 5,
     "format": "󰍛",
-    "on-click": "ghostty -e btop"
+    "on-click": "alacritty -e btop"
   },
   "clock": {
     "format": "{:L%A %I:%M:%S %p}",
@@ -187,7 +187,7 @@
   },
   "pulseaudio": {
     "format": "{icon}",
-    "on-click": "ghostty --class=Wiremix -e wiremix",
+    "on-click": "xdg-terminal-exec --app-id=com.omarchy.Wiremix -e wiremix",
     // "on-click": "group:expand/audio",
     "on-click-right": "pamixer -t",
     "tooltip-format": "{volume}%",
