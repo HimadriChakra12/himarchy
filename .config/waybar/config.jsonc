@@ -163,10 +163,10 @@
     "format": "{capacity}% {icon}",
     "format-discharging": " {capacity}% {icon}",
     "format-charging": " {capacity}% {icon}",
-    "format-plugged": "",
+    "format-plugged": " {capacity} ",
     "format-icons": {
-      "charging": ["󱐌", "󱐌", "󱐌", "󱐌", " 󱐋"],
-      "default": ["", "", "", " "]
+      "charging": ["󱐌", "󱐌", "󱐌", "󱐌", "󱐋"],
+      "default": ["", "", "", ""]
     },
     "format-full": " 󱐋 ",
     "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
