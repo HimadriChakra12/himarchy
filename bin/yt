@@ -13,7 +13,7 @@ BOLD='\033[1m'
 NC='\033[0m'
 
 # Default directories
-MUSIC_DIR="$HOME/Music"
+MUSIC_DIR="$HOME/Music/yt-dlp"
 CONFIG_DIR="$HOME/.config/ytdlp-tui"
 
 # UI mode: fzf, whiptail, or basic
